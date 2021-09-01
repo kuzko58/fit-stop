@@ -1,0 +1,35 @@
+.row {
+    margin: 70px 0 5px;
+}
+
+.row h2 {
+    margin: 0 2px 5px;
+    color: #555;
+}
+
+.gallery {
+    margin: 30px 0;
+}
+
+.mini_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.mini_row__col {
+    margin-right: 10px;
+    width: 180px;
+}
+
+@media only screen and (max-width: 768px) {
+    .mini_row__col {
+        flex-grow: 1;
+    }
+  }
+
+  @media only screen and (max-width: 440px) {
+    .mini_row__col {
+        margin-right: 0;
+    }
+  }

@@ -1,0 +1,122 @@
+.form__input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.form__input-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--txt-color);
+  text-transform: capitalize;
+}
+
+.form__input-field {
+  padding: 5px 10px;
+  height: 40px;
+  max-width: 280px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  background-color: var(--second-bg);
+  color: var(--txt-color);
+}
+
+.form__input-field:focus-within {
+  border: 1px solid var(--main-color);
+}
+
+.form__input-field > input {
+  background-color: var(--second-bg);
+  color: var(--txt-color);
+  height: 30px;
+  width: 100%;
+}
+
+.form__input-field > input:focus {
+  border: none;
+}
+
+.form__input-field > span {
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+}
+
+.form__select-field {
+  padding: 0;
+  height: 40px;
+  width: 100%;
+  max-width: 280px;
+  min-width: 200px;
+  margin-bottom: 5px;
+  border-radius: var(--border-radius);
+}
+
+.react-select-container {
+  background-color: var(--second-bg) !important;
+  height: 100%;
+  width: 100% !important;
+  border-radius: var(--border-radius) !important;
+}
+
+.react-select__control {
+  background-color: var(--second-bg) !important;
+  color: var(--txt-color) !important;
+  width: 100% !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+}
+
+.react-select__input > input[type=text] {
+  color: var(--txt-color) !important;
+}
+
+.react-select__single-value {
+  color: var(--txt-color) !important;
+  text-transform: capitalize !important;
+}
+
+.react-select__control:focus-within {
+  border: 1px solid var(--main-color) !important;
+  box-shadow: none !important;
+}
+
+.react-select__control:hover {
+  box-shadow: none !important;
+}
+
+/* .react-select__control:focus-within .form__select-field {
+  border: 1px solid var(--main-color) !important;
+} */
+
+.react-select__menu {
+  background-color: var(--main-bg) !important;
+  border-radius: var(--border-radius) !important;
+}
+
+.react-select__menu-list {
+  border-radius: var(--border-radius) !important;
+  padding: 0 !important;
+}
+
+.react-select__option {
+  background-color: var(--main-bg) !important;
+  color: var(--txt-color);
+  text-transform: capitalize !important;
+}
+
+.react-select__option:hover {
+  background-color: var(--second-bg) !important;
+}
+
+.react-select__option--is-selected {
+  color: var(--txt-color) !important;
+  background-color: var(--second-bg) !important;
+}
+
+.form__helper-text {
+  font-size: 0.825rem;
+}

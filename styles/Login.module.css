@@ -1,0 +1,139 @@
+.login {
+  background-color: var(--second-bg);
+  min-height: 100vh;
+  padding: 40px 2px;
+  color: #555;
+}
+
+.login__container {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.login__container__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 0 20px 0 rgba(68, 48, 48, 0.1);
+  border-radius: 4px;
+  background-color: var(--main-bg);
+}
+
+.login-form__title {
+  font-weight: normal;
+  width: fit-content;
+  /* border-bottom: 3px solid #ff523b; */
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.login-form__alert-box {
+  padding: 2px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.login-form__helper-text {
+  font-size: 14px;
+}
+
+.login-form__checkbox {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.login-form__checkbox > input {
+  height: 15px;
+  width: 15px;
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+.login-form__checkbox label {
+  font-size: 14px;
+}
+
+.login-form__button-wrapper {
+  width: 100%;
+}
+
+.login-form__button {
+  width: 100%;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--txt-white);
+  background-color: #ff523b;
+  margin: 0 auto !important;
+}
+
+.login-form__link {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.login-form__link a {
+  position: relative;
+  margin-bottom: 5px;
+  font-size: 14px;
+  /* color: #ff7866; */
+}
+
+.login__container__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 10px;
+  color: var(--txt-color-light);
+  font-size: 14px;
+}
+
+.error-border {
+  border: 1px solid var(--main-color-red);
+}
+
+.error-txt {
+  color: var(--main-color-red);
+}
+
+.success-txt {
+  color: var(--main-color-green);
+}
+
+.mb-1 {
+  margin-bottom: 10px !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.footer-logo {
+  font-size: 14px !important;
+  border: none !important;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 0 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .login {
+    background-color: #fff;
+  }
+
+  .login-form {
+    box-shadow: none;
+  }
+}

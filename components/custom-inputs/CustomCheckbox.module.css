@@ -1,0 +1,47 @@
+.form-group {
+  width: fit-content;
+  margin: 5px;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+}
+
+.check-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border: 1px solid #555;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.form-group input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group label {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form-group input:checked + label .check-box {
+  background-color: #fff;
+}
+
+.form-group input:checked + label .check-tick {
+  width: 35%;
+  height: 70%;
+  border: 2px solid #555;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

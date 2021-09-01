@@ -1,0 +1,15 @@
+.card {
+    margin-bottom: 30px;
+}
+
+.card Image {
+    width: 100%;
+}
+
+.round_image {
+    border-radius: 50%;
+}
+
+.quote__icon {
+    color: #777 !important;
+}

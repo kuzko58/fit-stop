@@ -1,0 +1,30 @@
+.hero {
+  padding: 0 80px;
+  background: radial-gradient(#fff, #ffd6d6);
+}
+
+.row {
+  margin-top: 0px;
+  max-width: 1500px;
+}
+
+.row h1 {
+  font-size: 40px;
+  line-height: 50px;
+  margin: 25px 0;
+}
+
+/* ***** media query ***** */
+
+@media only screen and (max-width: 768px) {
+  .hero {
+      padding: 0 20px;
+      padding-right: 20px;
+  }
+
+  .row h1 {
+    font-size: 25px;
+    line-height: 35px;
+    margin: 25px 0;
+  }
+}
