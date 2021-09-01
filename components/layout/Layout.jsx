@@ -14,7 +14,7 @@ export default function Layout({ children }) {
   const footerRef = useRef(null);
   const navbarRef = useRef(null);
   const [contentPad, setContentPad] = useState({
-    paddingTop: 70,
+    paddingTop: 60,
     paddingBottom: 200,
   });
   const [menuOpen, setMenuOpen] = useState(false);
