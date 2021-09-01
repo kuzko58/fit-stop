@@ -5,7 +5,7 @@ import { validateEmail } from "../utility/utility";
 import { login } from "../actions/authActions";
 import CustomTextInput from "../components/custom-inputs/CustomTextInput";
 import CustomPasswordInput from "../components/custom-inputs/CustomPasswordInput";
-import CustomCheckbox from "../components/custom-inputs/CustomCheckBox";
+import CustomCheckbox from "../components/custom-inputs/CustomCheckbox";
 import CustomLoadButton from "../components/buttons/CustomLoadButton";
 import Logo from "../components/Logo/Logo";
 import Redirect from "../components/Redirect";
