@@ -8,8 +8,8 @@ export const removeNonNumbers = (str) => {
 };
 
 export const validateQuantity = (num) => {
-  if (num < 1) return 1;
-  if(typeof num === "string") return num.replace(/[^0-9]/g, "").replace(/^0+(?!$)/, "");
+  if (num < 1) return 0;
+  if(typeof num === "string") return num?.replace(/[^0-9]/g, "").replace(/^0+(?!$)/, /^0+$/.test(num) ? 0 : "");
   return Number(num);
 
 }
