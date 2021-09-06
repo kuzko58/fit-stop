@@ -8,9 +8,14 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../Logo/Logo";
+import CartBadge from "../badge/CartBadge";
+import { useAppState } from "../../providers/AppStateProvider";
+import { useAuthState } from "../../providers/AuthStateProvider";
 import layoutStyles from "./layout.module.css";
 
 export default function Layout({ children }) {
+  const [{ isLoggedIn }] = useAuthState();
+  const [{ basketCount }] = useAppState();
   const footerRef = useRef(null);
   const navbarRef = useRef(null);
   const [contentPad, setContentPad] = useState({
@@ -99,17 +104,23 @@ export default function Layout({ children }) {
                 </Link>
               </li>
               <li>
-                <Link href="/login">
-                  <a>Sign In</a>
-                </Link>
+                {!isLoggedIn ? (
+                  <Link href="/login">
+                    <a>Sign In</a>
+                  </Link>
+                ) : (
+                  <p>Sign Out</p>
+                )}
               </li>
             </ul>
           </nav>
           <Link href="/cart">
             <a>
-              <IconButton className={layoutStyles.cart_btn}>
-                <ShoppingBasketOutlinedIcon />
-              </IconButton>
+              <CartBadge badgeContent={basketCount} color="secondary">
+                <IconButton className={layoutStyles.cart_btn}>
+                  <ShoppingBasketOutlinedIcon />
+                </IconButton>
+              </CartBadge>
             </a>
           </Link>
           <IconButton onClick={handleMenu} className={layoutStyles.menu_btn}>

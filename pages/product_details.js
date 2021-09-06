@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
-import clsx from "clsx";
+import router, { useRouter } from "next/router";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
@@ -12,7 +11,10 @@ import MiniGallery from "../components/mini-gallery/MiniGallery";
 import SimpleCard from "../components/cards/SimpleCard";
 import CustomSelect from "../components/custom-inputs/CustomSelect";
 import CustomTextInput from "../components/custom-inputs/CustomTextInput";
+import Redirect from "../components/Redirect";
 import { featuredProducts, renderProductDesc } from "../constants";
+import { useAppState } from "../providers/AppStateProvider";
+import { addToBasket } from "../actions/action";
 import styles from "../styles/Product_details.module.css";
 
 const sizeList = [
@@ -23,37 +25,23 @@ const sizeList = [
   { value: "xxl", label: "XXL" },
 ];
 
-const product = {
-  title: "Red Printed T-Shirt by HRX",
-  description:
-    "This is a super awesome red T-shirt. It comes in different sizes and is ready for shipment. place an order now.",
-  images: [
-    "/images/gallery-1.jpg",
-    "/images/gallery-2.jpg",
-    "/images/gallery-3.jpg",
-    "/images/gallery-4.jpg",
-  ],
-  rating: 4.5,
-  oldPrice: 10000,
-  price: 9000,
-  discount: 10,
-};
-
-const renderSmallImage = ({ images, bigImage, setBigImage }) => {
+const renderSmallImage = ({ images, bigImage, handleChange }) => {
   const imageCount = images?.length || 4;
   const margin = (imageCount - 1) * 4;
   return (
     <div className="small_img_row">
       {images?.map((image, index) => (
         <div
-          onClick={() => setBigImage(image)}
+          onClick={() =>
+            handleChange({ target: { name: "bigImage", value: image } })
+          }
           className="small_img_col"
           key={index}
         >
-          <Image src={image} alt="card image" width={200} height={200} />
+          <Image src={image} alt="card image" width={100} height={100} />
           <span
             className="active"
-            style={{ height: bigImage === image ? "calc(100% - 5px)" : 0 }}
+            style={{ height: bigImage === image ? "100%" : 0 }}
           ></span>
         </div>
       ))}
@@ -63,13 +51,16 @@ const renderSmallImage = ({ images, bigImage, setBigImage }) => {
             .small_img_row {
                 display: flex;
                 align-items: center;
+                justify-content: center;
             }
 
             .small_img_col {
                 position: relative;
-                flex-basis: calc((100% - ${margin}px) / ${imageCount});
-                flex-grow: 1;
+                overflow: hidden;
+                // flex-basis: calc((100% - ${margin}px) / ${imageCount});
+                // flex-grow: 1;
                 margin-right: 4px;
+                max-height: 100px;
             }
 
             .small_img_col:last-of-type {
@@ -83,12 +74,11 @@ const renderSmallImage = ({ images, bigImage, setBigImage }) => {
             .active {
                 height: 0;
                 width: 100%;
-                max-width: 200px;
-                // background: #ff523b;
+                max-width: 100px;
                 background: rgba(0, 0, 0, .3);
                 position: absolute;
                 left: 0;
-                bottom: 5px;
+                bottom: 0;
                 border-radius: 3px;
                 transition: all 0.5s linear;
             }
@@ -102,7 +92,10 @@ const renderDesc = ({
   handleChange,
   list,
   state,
+  product,
   product: { title, description, price, oldPrice, discount, rating },
+  addItemToBasket,
+  addItemToBasketAndCheckout,
 }) => {
   return (
     <div>
@@ -124,25 +117,26 @@ const renderDesc = ({
           })}
       </div>
       <div className="price_section">
-      <CurrencyFormat
-        renderText={(value) => (
-          <div className="price_box">
-            <p className="product__price">{value}</p>
-          </div>
-        )}
-        decimalScale={2}
-        value={price}
-        displayType={"text"}
-        thousandSeparator={true}
-        prefix="₦"
-      />
-      {
-          oldPrice ? (
-            <CurrencyFormat
+        <CurrencyFormat
+          renderText={(value) => (
+            <div className="price_box">
+              <p className="product__price">{value}</p>
+            </div>
+          )}
+          decimalScale={2}
+          value={price}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix="₦"
+        />
+        {oldPrice ? (
+          <CurrencyFormat
             renderText={(value) => (
               <div className="price_box">
                 <p className="product__old_price">{value}</p>
-                { discount && <p className="product__price_discount">{discount}% off</p>}
+                {discount && (
+                  <p className="product__price_discount">{discount}% off</p>
+                )}
               </div>
             )}
             decimalScale={2}
@@ -151,8 +145,9 @@ const renderDesc = ({
             thousandSeparator={true}
             prefix="₦"
           />
-          ) : ""
-      }
+        ) : (
+          ""
+        )}
       </div>
       <div className={styles.mini_row}>
         <div className={styles.mini_row__col}>
@@ -177,10 +172,30 @@ const renderDesc = ({
       </div>
       <div className={styles.mini_row}>
         <div className={styles.mini_row__col}>
-          <a className="btn_hz_tr product_btn">add to basket</a>
+          <a
+            className="btn_hz_tr product_btn"
+            onClick={() =>
+              addItemToBasket({
+                product,
+                size: state.size,
+                quantity: Number(state.quantity) || 1,
+              })
+            }
+          >
+            add to basket
+          </a>
         </div>
         <div className={styles.mini_row__col}>
-          <a className="btn_hz product_btn">Checkout Now</a>
+          <a
+            className="btn_hz product_btn"
+            onClick={() => addItemToBasketAndCheckout({
+              product,
+              size: state.size,
+              quantity: Number(state.quantity) || 1,
+            })}
+          >
+            Checkout Now
+          </a>
         </div>
       </div>
       <h3>Product Details</h3>
@@ -263,8 +278,20 @@ const renderDesc = ({
 };
 
 export default function ProductDetails() {
-  const [state, setState] = useState({ size: null, quantity: 1 });
-  const [bigImage, setBigImage] = useState(product?.images[0]);
+  const [{ basket }, dispatch] = useAppState();
+  const { query } = useRouter();
+  const product = useMemo(() => query?.product && JSON.parse(query.product), [
+    query,
+  ]);
+
+  const defaultState = {
+    size: null,
+    quantity: 1,
+    bigImage: product?.image[0],
+    checkout: false,
+  };
+
+  const [state, setState] = useState(defaultState);
 
   const handleChange = (e) => {
     if (e.value) {
@@ -280,6 +307,23 @@ export default function ProductDetails() {
     }));
   };
 
+  const addItemToBasket = (item) => {
+    addToBasket(dispatch, item);
+  };
+
+  const addItemToBasketAndCheckout = (item) => {
+    addToBasket(dispatch, item);
+    setState((prevVal) => ({ ...prevVal, checkout: true }));
+  };
+
+  useEffect(() => {
+    setState({ size: null, quantity: 1, bigImage: product?.image[0] });
+  }, [product]);
+
+  if (!product) return <Redirect to="/" />;
+
+  if (state.checkout) return <Redirect to="/cart" />;
+
   return (
     <div>
       <Layout>
@@ -292,12 +336,12 @@ export default function ProductDetails() {
             <SimpleCard
               classes="shdw pad_1"
               size={2}
-              image={bigImage}
+              image={state.bigImage}
               renderContent={() =>
                 renderSmallImage({
-                  images: product?.images,
-                  bigImage,
-                  setBigImage,
+                  images: product?.image,
+                  bigImage: state.bigImage,
+                  handleChange,
                 })
               }
             />
@@ -310,25 +354,33 @@ export default function ProductDetails() {
                   list: sizeList,
                   state,
                   product,
+                  addItemToBasket,
+                  addItemToBasketAndCheckout,
                 })
               }
             />
           </MiniGallery>
-          {/* <div className={clsx("row", styles.row)}>
-          <h2>Related Products</h2>
-          <Link href=""><a className="btn_tr">more &#8594;</a></Link>
-        </div> */}
-        <MiniGallery classes={styles.gallery} title="Related Products" button={{ text: "Explore", link: "" }}>
-          {featuredProducts.slice(0, 4).map((item, index) => (
-            <SimpleCard
-              classes="shdw pad_1 card_3d"
-              key={index}
-              size={4}
-              image={item.image}
-              renderContent={() => renderProductDesc(item)}
-            />
-          ))}
-        </MiniGallery>
+          <MiniGallery
+            classes={styles.gallery}
+            title="Related Products"
+            button={{ text: "Explore", link: "/products" }}
+          >
+            {featuredProducts.slice(0, 4).map((item, index) => (
+              <SimpleCard
+                classes="shdw pad_1 card_3d"
+                key={index}
+                size={4}
+                image={item.image[0]}
+                renderContent={() => renderProductDesc(item)}
+                onClick={() =>
+                  router.push({
+                    pathname: "/product_details",
+                    query: { product: JSON.stringify(item) },
+                  })
+                }
+              />
+            ))}
+          </MiniGallery>
         </div>
       </Layout>
     </div>

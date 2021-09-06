@@ -1,6 +1,6 @@
 import { LOGIN } from "./actionTypes";
 
-export const login = async (
+export const login = (
   { email, password, rememberMe },
   { setLoading, dispatchAuth }
 ) => {

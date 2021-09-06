@@ -13,25 +13,24 @@ import SimpleCard from "../components/cards/SimpleCard";
 import CustomSelect from "../components/custom-inputs/CustomSelect";
 import CustomTextInput from "../components/custom-inputs/CustomTextInput";
 import { featuredProducts, renderProductDesc } from "../constants";
+import { useAppState } from "../providers/AppStateProvider";
+import { renderBasket } from "../reducers/appReducer";
 import styles from "../styles/Cart.module.css";
+import { addToBasket, removeFromBasket } from "../actions/action";
 
 export default function Cart() {
-  //   const [state, setState] = useState({ size: null, quantity: 1 });
-  //   const [bigImage, setBigImage] = useState(product?.images[0]);
+  const [{ basket, basketTotal }, dispatch] = useAppState();
 
-  //   const handleChange = (e) => {
-  //     if (e.value) {
-  //       return setState((prevVal) => ({
-  //         ...prevVal,
-  //         size: e,
-  //       }));
-  //     }
-  //     const { name, value } = e.target;
-  //     return setState((prevVal) => ({
-  //       ...prevVal,
-  //       [name]: value,
-  //     }));
-  //   };
+  const getAllTotal = (subtotal) => {
+    const tax = (3 * subtotal) / 100;
+    const shipping = 1500;
+    const total = subtotal + tax + shipping;
+    return {
+      tax,
+      total,
+      shipping,
+    };
+  };
 
   return (
     <div>
@@ -47,118 +46,154 @@ export default function Cart() {
               <th>Quantity</th>
               <th>Subtotal</th>
             </tr>
-            <tr>
-              <td>
-                <div className={styles.cart_info}>
-                  <div className={styles.product_img}>
-                  <Image
-                    src="/images/gallery-1.jpg"
-                    alt="card image"
-                    width={80}
-                    height={80}
-                  />
-                  </div>
-                  <div>
-                    <p>Red Printed T-Shirt</p>
+            {basket.map((item, index) => {
+              const { product, quantity } = item;
+              return (
+                <tr key={index}>
+                  <td>
+                    <div className={styles.cart_info}>
+                      <div className={styles.product_img}>
+                        <Image
+                          src={product?.image[0]}
+                          alt="card image"
+                          width={80}
+                          height={80}
+                        />
+                      </div>
+                      <div>
+                        <p>{product?.title}</p>
+                        <CurrencyFormat
+                          renderText={(value) => (
+                            <div className="price_box">
+                              <small className="smallroduct__price">
+                                Price: {value}
+                              </small>
+                            </div>
+                          )}
+                          decimalScale={2}
+                          value={product?.price}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix="₦"
+                        />
+                        <a
+                          className={styles.remove_btn}
+                          onClick={() => removeFromBasket(dispatch, item)}
+                        >
+                          Remove
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className={styles.input}>
+                      <CustomTextInput
+                        classes={styles["quantity-input"]}
+                        name="quantity"
+                        value={quantity}
+                        onChange={(e) =>
+                          addToBasket(dispatch, {
+                            ...item,
+                            quantity: Number(e.target.value),
+                          })
+                        }
+                        componentProps={{ type: "number", min: 1 }}
+                      />
+                    </div>
+                  </td>
+                  <td>
                     <CurrencyFormat
                       renderText={(value) => (
                         <div className="price_box">
-                          <small className="smallroduct__price">
-                            Price: {value}
-                          </small>
+                          <p className="product__price">{value}</p>
                         </div>
                       )}
                       decimalScale={2}
-                      value={9000}
+                      value={quantity * product?.price}
                       displayType={"text"}
                       thousandSeparator={true}
                       prefix="₦"
                     />
-                    <a className={styles.remove_btn}>Remove</a>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div className={styles.input}>
-                  <CustomTextInput
-                    //   label="quantity"
-                    name="quantity"
-                    // value={state?.quantity}
-                    // onChange={handleChange}
-                    componentProps={{ type: "number", min: 1 }}
-                  />
-                </div>
-              </td>
-              <td>
-                <CurrencyFormat
-                  renderText={(value) => (
-                    <div className="price_box">
-                      <p className="product__price">{value}</p>
-                    </div>
-                  )}
-                  decimalScale={2}
-                  value={9000}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  prefix="₦"
-                />
-              </td>
-            </tr>
+                  </td>
+                </tr>
+              );
+            })}
           </table>
           <div className={styles.total_price}>
-            <table>
-              <tr>
-                <td>Subtotal</td>
-                <td>
-                  <CurrencyFormat
-                    renderText={(value) => (
-                      <div className="price_box">
-                        <p className="product__price">{value}</p>
-                      </div>
-                    )}
-                    decimalScale={2}
-                    value={9000}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                    prefix="₦"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Tax</td>
-                <td>
-                  <CurrencyFormat
-                    renderText={(value) => (
-                      <div className="price_box">
-                        <p className="product__price">{value}</p>
-                      </div>
-                    )}
-                    decimalScale={2}
-                    value={500}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                    prefix="₦"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Total</td>
-                <td>
-                  <CurrencyFormat
-                    renderText={(value) => (
-                      <div className="price_box">
-                        <p className="product__price">{value}</p>
-                      </div>
-                    )}
-                    decimalScale={2}
-                    value={9500}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                    prefix="₦"
-                  />
-                </td>
-              </tr>
-            </table>
+            {basketTotal ? (
+              <table>
+                <tr>
+                  <td>Subtotal</td>
+                  <td>
+                    <CurrencyFormat
+                      renderText={(value) => (
+                        <div className="price_box">
+                          <p className="product__price">{value}</p>
+                        </div>
+                      )}
+                      decimalScale={2}
+                      value={basketTotal}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix="₦"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tax</td>
+                  <td>
+                    <CurrencyFormat
+                      renderText={(value) => (
+                        <div className="price_box">
+                          <p className="product__price">{value}</p>
+                        </div>
+                      )}
+                      decimalScale={2}
+                      value={getAllTotal(basketTotal)?.tax}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix="₦"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Shipping</td>
+                  <td>
+                    <CurrencyFormat
+                      renderText={(value) => (
+                        <div className="price_box">
+                          <p className="product__price">{value}</p>
+                        </div>
+                      )}
+                      decimalScale={2}
+                      value={getAllTotal(basketTotal)?.shipping}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix="₦"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>
+                    <CurrencyFormat
+                      renderText={(value) => (
+                        <div className="price_box">
+                          <p className="product__price">{value}</p>
+                        </div>
+                      )}
+                      decimalScale={2}
+                      value={getAllTotal(basketTotal)?.total}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix="₦"
+                    />
+                  </td>
+                </tr>
+              </table>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </Layout>

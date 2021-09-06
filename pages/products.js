@@ -41,7 +41,7 @@ export default function Products() {
               classes="shdw pad_1 card_3d"
               key={index}
               size={4}
-              image={item.image}
+              image={item.image ? item.image[0] : undefined}
               renderContent={() => renderProductDesc(item)}
             />
           ))}

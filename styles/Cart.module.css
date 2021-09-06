@@ -39,6 +39,7 @@
 .remove_btn {
     color: #ff523b;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .total_price {
@@ -52,6 +53,10 @@
     width: 100%;
     max-width: 600px;
     border-collapse: collapse;
+}
+
+.quantity-input input {
+    text-align: center;
 }
 
 @media only screen and (max-width: 600px) {

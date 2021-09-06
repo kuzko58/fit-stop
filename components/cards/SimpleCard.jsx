@@ -3,9 +3,19 @@ import clsx from "clsx";
 import Image from "next/image";
 import cardStyles from "./cards.module.css";
 
-export default function SimpleCard({ image, title, size, renderContent, classes }) {
+export default function SimpleCard({
+  image,
+  title,
+  size,
+  renderContent,
+  classes,
+  onClick,
+}) {
   return (
-    <div className={clsx(`col_${size}`, cardStyles.card, classes)}>
+    <div
+      className={clsx(`col_${size}`, cardStyles.card, classes)}
+      onClick={onClick ? onClick : undefined}
+    >
       {image && (
         <Image
           src={image}

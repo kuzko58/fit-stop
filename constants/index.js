@@ -4,73 +4,135 @@ import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 
-
+// Featured Category
 export const featuredCategory = [
-  { image: "/images/category-1.jpg" },
-  { image: "/images/category-2.jpg" },
-  { image: "/images/category-3.jpg" },
+  { image: ["/images/category-1.jpg"] },
+  { image: ["/images/category-2.jpg"] },
+  { image: ["/images/category-3.jpg"] },
 ];
 
+// Products
 export const featuredProducts = [
   {
-    image: "/images/product-1.jpg",
+    id: 1,
+    image: [
+      "/images/gallery-1.jpg",
+      "/images/gallery-2.jpg",
+      "/images/gallery-3.jpg",
+      "/images/gallery-4.jpg",
+    ],
     title: "Red printed T-shirt",
-    rating: 4,
-    price: 5000,
-  },
-  { image: "/images/product-2.jpg", title: "Sneakers", rating: 5, price: 8500 },
-  {
-    image: "/images/product-3.jpg",
-    title: "Sports Trousers",
+    description:
+      "This is a super awesome red T-shirt. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4.5,
+    oldPrice: 10000,
+    price: 9000,
+    discount: 10,
+  },
+  {
+    id: 2,
+    image: ["/images/product-2.jpg"],
+    title: "Sneakers",
+    description:
+      "This is a super awesome sneaker. It comes in different sizes and is ready for shipment. place an order now.",
+    rating: 5,
+    oldPrice: 9000,
+    price: 8500,
+    discount: 6,
+  },
+  {
+    id: 3,
+    image: ["/images/product-3.jpg"],
+    title: "Sports Trousers",
+    description:
+      "This is a super awesome red sports trouser. It comes in different sizes and is ready for shipment. place an order now.",
+    rating: 4.5,
+    oldPrice: 7000,
     price: 6900,
+    discount: 1.4,
   },
   {
-    image: "/images/product-4.jpg",
+    id: 4,
+    image: ["/images/product-4.jpg"],
     title: "Blue printed polo",
+    description:
+      "This is a super awesome blue printed polo. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 3,
+    oldPrice: 3000,
     price: 2900,
+    discount: 3.33,
   },
   {
-    image: "/images/product-5.jpg",
+    id: 5,
+    image: ["/images/product-5.jpg"],
     title: "Gray boots",
+    description:
+      "This is a super awesome gray boot. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 12000,
   },
   {
-    image: "/images/product-6.jpg",
+    id: 6,
+    image: ["/images/product-6.jpg"],
     title: "Sports t-shirt",
+    description:
+      "This is a super awesome sports T-shirt. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
+    oldPrice: 5000,
     price: 4700,
+    discount: 6,
   },
-  { image: "/images/product-7.jpg", title: "Socks", rating: 3.5, price: 800 },
   {
-    image: "/images/product-8.jpg",
+    id: 7,
+    image: ["/images/product-7.jpg"],
+    title: "Socks",
+    description:
+      "This is a super awesome sock. It comes in different sizes and is ready for shipment. place an order now.",
+    rating: 3.5,
+    price: 800,
+  },
+  {
+    id: 8,
+    image: ["/images/product-8.jpg"],
     title: "Wristwatch",
+    description:
+      "This is a super awesome wristwatch. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 18000,
   },
   {
-    image: "/images/product-9.jpg",
+    id: 9,
+    image: ["/images/product-9.jpg"],
     title: "wristwatch",
+    description:
+      "This is a super awesome wristwatch. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 12000,
   },
   {
-    image: "/images/product-10.jpg",
+    id: 10,
+    image: ["/images/product-10.jpg"],
     title: "Black shoes",
+    description:
+      "This is a super awesome black shoe. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 10000,
   },
   {
-    image: "/images/product-11.jpg",
+    id: 11,
+    image: ["/images/product-11.jpg"],
     title: "Gray shoes",
+    description:
+      "This is a super awesome gray shoe. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 3.5,
     price: 8000,
   },
   {
-    image: "/images/product-12.jpg",
+    id: 12,
+    image: ["/images/product-12.jpg"],
     title: "trousers",
+    description:
+      "This is a super awesome trouser. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 3,
     price: 3000,
   },
@@ -78,52 +140,74 @@ export const featuredProducts = [
 
 export const latestProducts = [
   {
-    image: "/images/product-5.jpg",
+    id: 5,
+    image: ["/images/product-5.jpg"],
     title: "Gray boots",
+    description:
+      "This is a super awesome gray boot. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 12000,
   },
   {
-    image: "/images/product-6.jpg",
+    id: 6,
+    image: ["/images/product-6.jpg"],
     title: "Sports t-shirt",
+    description:
+      "This is a super awesome sports T-shirt. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
+    oldPrice: 5000,
     price: 4700,
+    discount: 6,
   },
-  { image: "/images/product-7.jpg", title: "Socks", rating: 3.5, price: 800 },
+  { id: 7, image: ["/images/product-7.jpg"], title: "Socks", rating: 3.5, price: 800 },
   {
-    image: "/images/product-8.jpg",
+    id: 8,
+    image: ["/images/product-8.jpg"],
     title: "Wristwatch",
     rating: 4,
     price: 18000,
   },
   {
-    image: "/images/product-9.jpg",
+    id: 9,
+    image: ["/images/product-9.jpg"],
     title: "wristwatch",
+    description:
+      "This is a super awesome wristwatch. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 12000,
   },
   {
-    image: "/images/product-10.jpg",
+    id: 10,
+    image: ["/images/product-10.jpg"],
     title: "Black shoes",
+    description:
+      "This is a super awesome black shoe. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 4,
     price: 10000,
   },
   {
-    image: "/images/product-11.jpg",
+    id: 11,
+    image: ["/images/product-11.jpg"],
     title: "Gray shoes",
+    description:
+      "This is a super awesome gray shoe. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 3.5,
     price: 8000,
   },
   {
-    image: "/images/product-12.jpg",
+    id: 12,
+    image: ["/images/product-12.jpg"],
     title: "trousers",
+    description:
+      "This is a super awesome trouser. It comes in different sizes and is ready for shipment. place an order now.",
     rating: 3,
     price: 3000,
   },
 ];
 
+// Offers
 export const offers = [
-  { image: "/images/exclusive.png" },
+  { image: ["/images/exclusive.png"] },
   {
     title: "Smart band 4",
     description:
@@ -136,25 +220,24 @@ export const testimonials = [
     name: "Kate warner",
     review:
       "Simply amazing! This is the best e-commerce platform around. It is simple and easy to use. The beautiful UI is very easy on the eye as well.",
-    image: "/images/user-1.png",
+    image: ["/images/user-1.png"],
     rating: 5,
   },
   {
     name: "Chuck Baz",
     review:
       "Simply amazing! This is the best e-commerce platform around. It is simple and easy to use. The beautiful UI is very easy on the eye as well.",
-    image: "/images/user-2.png",
+    image: ["/images/user-2.png"],
     rating: 5,
   },
   {
     name: "Lauren Paige",
     review:
       "Simply amazing! This is the best e-commerce platform around. It is simple and easy to use. The beautiful UI is very easy on the eye as well.",
-    image: "/images/user-3.png",
+    image: ["/images/user-3.png"],
     rating: 5,
   },
 ];
-
 
 // Renderers
 

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import Image from "next/image";
 import cardStyles from "./cards.module.css";
 
@@ -14,23 +14,27 @@ export default function ReviewCard({
   author,
   size,
   renderContent,
+  onClick,
 }) {
   return (
-    <div className={clsx(`col_${size}`, cardStyles.card, "card")}>
+    <div
+      className={clsx(`col_${size}`, cardStyles.card, "card")}
+      onClick={onClick ? onClick : undefined}
+    >
       <div className="review__header">
-      <div className="author_box">
-        {image && (
-          <Image
-            src={image}
-            alt="card image"
-            width={100}
-            height={100}
-            className={cardStyles.round_image}
-          />
-        )}
-        <h4>{author}</h4>
-      </div>
-      <FormatQuoteIcon className={cardStyles.quote__icon} />
+        <div className="author_box">
+          {image && (
+            <Image
+              src={image}
+              alt="card image"
+              width={100}
+              height={100}
+              className={cardStyles.round_image}
+            />
+          )}
+          <h4>{author}</h4>
+        </div>
+        <FormatQuoteIcon className={cardStyles.quote__icon} />
       </div>
       {renderContent && renderContent()}
       <p>{review}</p>
@@ -54,12 +58,12 @@ export default function ReviewCard({
         .card {
           box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
           padding: 20px;
-          transition: transform .5s;
+          transition: transform 0.5s;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            cursor: pointer;
+          transform: translateY(-10px);
+          cursor: pointer;
         }
 
         .review__rating {
@@ -74,8 +78,8 @@ export default function ReviewCard({
         }
 
         p {
-            font-size: 14px;
-            color: #777;
+          font-size: 14px;
+          color: #777;
         }
 
         .author_box {
@@ -86,8 +90,8 @@ export default function ReviewCard({
         }
 
         .review__header {
-            display: flex;
-            justify-content: space-between;
+          display: flex;
+          justify-content: space-between;
         }
       `}</style>
     </div>
