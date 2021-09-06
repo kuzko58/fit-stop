@@ -1,4 +1,4 @@
-import { LOGIN } from "./actionTypes";
+import { LOGIN, LOG_OUT } from "./actionTypes";
 
 export const login = (
   { email, password, rememberMe },
@@ -12,3 +12,5 @@ export const login = (
       payload: { email, password, rememberMe },
     })}, 3000)
 };
+
+export const logout = (dispatch) => (dispatch({ type: LOG_OUT }));

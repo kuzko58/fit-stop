@@ -65,7 +65,6 @@ const appReducer = (state = initApp, action) => {
       };
     }
     case REMOVE_FROM_BASKET: {
-      console.log(action.payload);
       const productIndex = state.basket.findIndex(
         (basketItem) => basketItem.product.id === action.payload.product.id
       );

@@ -15,6 +15,7 @@ import Redirect from "../components/Redirect";
 import { featuredProducts, renderProductDesc } from "../constants";
 import { useAppState } from "../providers/AppStateProvider";
 import { addToBasket } from "../actions/action";
+import { validateQuantity } from "../utility/utility";
 import styles from "../styles/Product_details.module.css";
 
 const sizeList = [
@@ -303,7 +304,7 @@ export default function ProductDetails() {
     const { name, value } = e.target;
     return setState((prevVal) => ({
       ...prevVal,
-      [name]: value,
+      [name]: name === "quantity" ? validateQuantity(value) :value,
     }));
   };
 

@@ -11,10 +11,11 @@ import Logo from "../Logo/Logo";
 import CartBadge from "../badge/CartBadge";
 import { useAppState } from "../../providers/AppStateProvider";
 import { useAuthState } from "../../providers/AuthStateProvider";
+import { logout } from "../../actions/authActions";
 import layoutStyles from "./layout.module.css";
 
 export default function Layout({ children }) {
-  const [{ isLoggedIn }] = useAuthState();
+  const [{ isLoggedIn }, dispatchAuth] = useAuthState();
   const [{ basketCount }] = useAppState();
   const footerRef = useRef(null);
   const navbarRef = useRef(null);
@@ -109,7 +110,7 @@ export default function Layout({ children }) {
                     <a>Sign In</a>
                   </Link>
                 ) : (
-                  <p>Sign Out</p>
+                  <p onClick={() => logout(dispatchAuth)}>Sign Out</p>
                 )}
               </li>
             </ul>

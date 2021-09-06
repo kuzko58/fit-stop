@@ -1,22 +1,13 @@
-import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import clsx from "clsx";
-import StarIcon from "@material-ui/icons/Star";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import StarHalfIcon from "@material-ui/icons/StarHalf";
 import CurrencyFormat from "react-currency-format";
 import Layout from "../components/layout/Layout";
-import MiniGallery from "../components/mini-gallery/MiniGallery";
-import SimpleCard from "../components/cards/SimpleCard";
-import CustomSelect from "../components/custom-inputs/CustomSelect";
 import CustomTextInput from "../components/custom-inputs/CustomTextInput";
-import { featuredProducts, renderProductDesc } from "../constants";
 import { useAppState } from "../providers/AppStateProvider";
-import { renderBasket } from "../reducers/appReducer";
 import styles from "../styles/Cart.module.css";
 import { addToBasket, removeFromBasket } from "../actions/action";
+import { validateQuantity } from "../utility/utility";
 
 export default function Cart() {
   const [{ basket, basketTotal }, dispatch] = useAppState();
@@ -94,7 +85,7 @@ export default function Cart() {
                         onChange={(e) =>
                           addToBasket(dispatch, {
                             ...item,
-                            quantity: Number(e.target.value),
+                            quantity: validateQuantity(e.target.value),
                           })
                         }
                         componentProps={{ type: "number", min: 1 }}

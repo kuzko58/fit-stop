@@ -1,4 +1,4 @@
-import { LOGIN } from "../actions/actionTypes";
+import { LOGIN, LOG_OUT } from "../actions/actionTypes";
 
 export const initAuth = {
   firstName: "",
@@ -16,6 +16,8 @@ const authReducer = (state = initAuth, action) => {
         isLoggedIn: true,
         rememberMe: action.payload.rememberMe,
       };
+      case LOG_OUT:
+      return initAuth;
     default:
       return state;
   }
